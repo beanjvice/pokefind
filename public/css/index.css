@@ -1,16 +1,30 @@
+h1,
+h2,
+h3,
+p,
+ul {
+  margin: 0;
+  padding: 0;
+}
 
-h1,h2,h3,p,ul{
- margin: 0;
- padding: 0;
+body {}
+
+header>ul {
+  display: flex;
+  gap: 1em;
 }
-body{
- background-color: red;
+
+header>ul>li {
+  list-style: none
 }
-header>ul{
- display:flex;
- gap: 1em;
+
+.logo {
+  width: 8em;
+  height: 8em;
 }
-header>ul>li{
- list-style:none
+
+.sm-icon {
+  width: 1.5em;
+  height: 1.5em;
 }
 
