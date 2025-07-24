@@ -22,6 +22,7 @@
         <li>My Favourites</li>
       </ul>
     </header>
+    <div><%= data[0].base_experience %></div>
     <main>
       <h1 class="title">Ivysaur</h1>
       <div class="tags">
@@ -40,12 +41,14 @@
     </main>
   </section>
   <section id="all">
+    <form action="/filter"  method="POST">
     <div class="searchbar">
-      <input type="text" placeholder="Find pokemons by name">
-      <div>
+      <input id="search-input" type="text" name="pokemon" placeholder="Find pokemons by name">
+      <button type="submit">
         <img src="/images/search.svg" alt="search" class="sm-icon">
-      </div>
+      </button>
     </div>
+    </form>
     <div class="grid-container">
       <div class="card">
         <img src="" alt="pokemon" class="pokemon">
@@ -58,7 +61,9 @@
       </div>
     </div>
   </section>
-  <!-- <script src="public/js/script.js" defer></script> -->
+
+ <script src="public/js/script.js" defer></script> 
+
 </body>
 
 </html>
