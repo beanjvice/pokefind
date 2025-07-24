@@ -13,8 +13,10 @@ const __dirname = dirname(filename)
 
 const api = "https://pokeapi.co/api/v2"
 // middlewares
+
 app.use(express.static(path.join(__dirname + '/public')))
 app.use(express.static(path.join(__dirname + '/views')))
+
 //app.use(express.static('public'))
 
 app.use(bodyParser.urlencoded({ extended: true }))
