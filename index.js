@@ -10,7 +10,7 @@ const port = 8000
 const filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(filename)
 // middlewares
-app.use(express.static(path.join(__dirname+'public')))
+app.use(express.static(path.join(__dirname, 'public')))
 //app.use(express.static('public'))
 
 app.use(bodyParser.urlencoded({extended:true}))
