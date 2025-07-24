@@ -15,7 +15,6 @@ const api = "https://pokeapi.co/api/v2"
 // middlewares
 
 app.use(express.static(path.join(__dirname + '/public')))
-app.use(express.static(path.join(__dirname + '/views')))
 
 //app.use(express.static('public'))
 
@@ -27,22 +26,21 @@ let filtered = false
 // routes
 app.get('/', (req, res) => {
   // code for fetching all pokemons
-  console.log(path.join(__dirname, 'views', 'index.html'))
+  console.log(pokemonList)
+  res.render("index.ejs",{data:pokemonList})
 })
 app.post('/filter', async (req, res) => {
   console.log(req.body)
   const { pokemon } = req.body;
   try {
     let response = await axios.get(`${api}/pokemon/${pokemon}`)
-    console.log('res', response.data)
-    res.json('index',{data:response.data,status:response.status})
+    pokemonList.push(response.data)
   }
   catch (err) {
     console.log('res', err)
-
-    res.json('index',{data:null,status:err})
     }
   // code for filtering pokemons
+  res.redirect('/')
 })
 app.post('/:id', (req, res) => {
   // code for fetchning pokemons by id
