@@ -10,18 +10,21 @@ const port = 8000
 const filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(filename)
 // middlewares
-app.use(express.static(path.join(__dirname, 'public')))
-//app.use(express.static('public'))
 
-app.use(bodyParser.urlencoded({extended:true}))
+app.use(express.static(path.join(__dirname + '/public')))
+app.use(express.static(path.join(__dirname + '/views')))
+
+//app.use(express.static('public'))
+console.log(path.join(__dirname + '/public'))
+
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
 
 // routes
 app.get('/', (req, res) => {
   // code for fetching all pokemons
-  console.log(__dirname)
-  res.sendFile(path.join(__dirname,'views','index.html'))
+  console.log(path.join(__dirname,'views','index.html'))
 })
 app.post('/filter', (req, res) => {
   // code for filtering pokemons
