@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= detail?.name %></title>
+  <link rel="stylesheet" type="text/css" href="/css/index.css">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+</head>
+<body>
+  <div class="row gap-md">
+      <div class="main-div">
+        <h1 class="title"><%= detail?.name %></h1>
+        <div class="tags">
+          <span class="tag">ability1</span>
+          <span class="tag">ability2</span>
+        </div>
+        <p class="about">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, magnam quo accusamus quas sapiente
+          provident sunt minima debitis consequuntur mollitia repudiandae sit reprehenderit, itaque dolorem unde eius
+          quia quibusdam laudantium.
+        </p>
+        <button class="save-btn">
+          <img src="/images/heart.svg" class="sm-icon" alt="save">
+          <span>Save</span>
+        </button>
+      </div>
+      <div class="pokemon-image">
+        <img src="<%= detail?.sprites.front_default %>" alt="pokemon-image">
+      </div>
+    </div>
+</body>
+</html>
