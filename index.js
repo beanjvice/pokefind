@@ -69,3 +69,13 @@ app.post('/save', (req, res) => {
 app.listen(port, (req, res) => {
   console.log(`Pokemon app is running successfully at port localhost:${port}`)
 })
+app.get('/pokemon/:id', async (req, res) => {
+  const { id } = req.params;
+  try {
+    const response = await axios.get(`${api}/pokemon/${id}`);
+    const pokemon = response.data;
+    res.render('pokemon.ejs', { pokemon });
+  } catch (error) {
+    res.status(404).send('Pokémon not found');
+  }
+});

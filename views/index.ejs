@@ -12,13 +12,28 @@
 </head>
 
 <body>
+  <section id="marquee-gallery">
+    <h2>Pokémon Gallery</h2>
+    <div class="marquee">
+      <div class="marquee-content">
+        <img src="/images/bulbasaur.jpg" alt="Bulbasaur" class="gallery-img">
+        <img src="/images/ivysaur.jpg" alt="Ivysaur" class="gallery-img">
+        <img src="/images/venusaur.jpg" alt="Venusaur" class="gallery-img">
+        <img src="/images/charmander.jpg" alt="Charmander" class="gallery-img">
+        <img src="/images/charmeleon.jpg" alt="Charmeleon" class="gallery-img">
+        <img src="/images/charizard.jpg" alt="Charizard" class="gallery-img">
+        <img src="/images/squirtle.jpg" alt="Squirtle" class="gallery-img">
+        <img src="/images/wartortle.jpg" alt="Wartortle" class="gallery-img">
+        <img src="/images/blastoise.jpg" alt="Blastoise" class="gallery-img">
+      </div>
+    </div>
+  </section>
+
   <section id="detail">
     <header>
-      <img src="/images/pokemonLogo.svg" alt="" class="logo">
+      <img src="/images/pokemonLogo.svg" alt="Pokefinder Logo" class="logo">
       <ul>
-        <li>
-          All
-        </li>
+        <li>All</li>
         <li>My Favourites</li>
       </ul>
     </header>
@@ -30,17 +45,15 @@
           <span class="tag">ability2</span>
         </div>
         <p class="about">
-          lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, magnam quo accusamus quas sapiente
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, magnam quo accusamus quas sapiente
           provident sunt minima debitis consequuntur mollitia repudiandae sit reprehenderit, itaque dolorem unde eius
-          quia
-          quibusdam laudantium.
+          quia quibusdam laudantium.
         </p>
         <button class="save-btn">
           <img src="/images/heart.svg" class="sm-icon" alt="save">
           <span>Save</span>
         </button>
         <div class="blob"></div>
-
         <div class="left">
           <img src="/images/leafquad.svg" class="img" alt="">
         </div>
@@ -51,11 +64,10 @@
           <img src="/images/leafquad.svg" class="img" alt="">
         </div>
       </div>
-      <div class="pokemon-image">
-
-      </div>
+      <div class="pokemon-image"></div>
     </main>
   </section>
+
   <section id="all">
     <form action="/filter" method="POST">
       <div class="searchbar">
@@ -81,11 +93,11 @@
                     <span class="ability">
                       <%= ab.ability.name %>
                     </span>
-                    <% }) %>
+                  <% }) %>
                 </div>
               </div>
               <div class="row gap-md self-center">
-                <div class="col  gap-sm">
+                <div class="col gap-sm">
                   <span class="lg-font">
                     <%= e.height %>M
                   </span>
@@ -103,36 +115,33 @@
                 <span>
                   <%= e.base_experience %>
                 </span>
-
               </div>
               <div class="row gap-md">
                 <span class="subttl">Items</span>
                 <div class="tags">
                   <% if(e.held_items.length>0){ %>
-
                   <% e.held_items.map(function(item){ %>
                     <span class="tag">
                       <%= item?.item?.name %>
                     </span>
-                    <% })} else { %>
-                      <span>No item</span>
-                      <% } %>
+                  <% })} else { %>
+                    <span>No item</span>
+                  <% } %>
                 </div>
               </div>
               <button class="save-btn">More details</button>
             </div>
           </div>
-          <% }) %>
-            <% } else { %>
-              <div>
-             <img width="200px" height="200px" src="/images/nothing.png" class="img" alt="">
-                <div class="text-center"> No Pokemon found </div></div>
-              <% } %>
+        <% }) %>
+      <% } else { %>
+        <div>
+          <img width="200px" height="200px" src="/images/nothing.png" class="img" alt="">
+          <div class="text-center"> No Pokemon found </div>
+        </div>
+      <% } %>
     </div>
   </section>
 
   <script src="public/js/script.js" defer></script>
-
 </body>
-
 </html>
