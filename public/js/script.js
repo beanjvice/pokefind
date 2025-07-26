@@ -25,3 +25,4 @@ document.addEventListener('DOMContentLoaded', () => {
         saveBtn.querySelector('span').textContent = saveBtn.classList.contains('saved') ? 'Saved' : 'Save';
     });
 });
+
