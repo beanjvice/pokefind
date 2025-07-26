@@ -15,56 +15,67 @@ const api = "https://pokeapi.co/api/v2"
 // middlewares
 
 app.use(express.static(path.join(__dirname + '/public')))
-
-//app.use(express.static('public'))
-
-app.use(bodyParser.urlencoded({ extended: true }))
-app.use(bodyParser.json())
-// routes
-app.get('/', (req, res) => {
-  let pokemonList = []
-  // code for fetching all pokemons
-  console.log(pokemonList)
-  res.render("index.ejs", { data: pokemonList })
-})
-app.post('/filter', async (req, res) => {
-  let pokemonList = []
-  let nameList = []
-  console.log(req.body)
-  let { pokemon } = req.body;
-  pokemon = pokemon.split(" ").join("-")
+const getPokemons = async (fetchtype,url,pokemon) => {
+  let nameList = [];
   let promises;
   try {
-    let response = await axios.get(`${api}/ability/${pokemon}`)
-    nameList = response.data.pokemon
+    let response = await axios.get(url)
+    if(fetchtype ==='all'){
+      response.data.results.map((e)=>nameList.push(e.name))
+    }
+    else if(fetchtype ==='filter'){
+      response.data.pokemon.map((e)=>nameList.push(e.pokemon.name))
+    }
+    else{
+    nameList.push(pokemon)
+    }
   } catch (error) {
     nameList.push(pokemon)
   }
-  console.log(nameList)
   if (nameList.length !== 0) {
-     promises = nameList.map(async (e) => {
+    promises = nameList.map(async (e) => {
       try {
-        let response = await axios.get(`${api}/pokemon/${e.pokemon.name}`)
+        let response = await axios.get(`${api}/pokemon/${e}`)
         return response.data
+
       }
       catch (err) {
-        try{
-        let response = await axios.get(`${api}/pokemon/${pokemon}`)
-        return response.data
+        try {
+          let response = await axios.get(`${api}/pokemon/${pokemon}`)
+          return response.data
         }
-        catch(error){
-             console.log(error)
+        catch (error) {
         }
       }
     }
     )
   }
- pokemonList = await Promise.all(promises)
-  // code for filtering pokemons
-  res.render("index.ejs", { data: pokemonList })
+  return promises
+
+}
+//app.use(express.static('public'))
+
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+// routes
+let showcase = []
+app.get('/', async (req, res) => {
+  let pokemonList = []
+  // code for fetching all pokemons
+
+  let promise = await getPokemons('all',api + "/pokemon?limit=10&offset=0",'')
+  showcase = await Promise.all(promise)
+  console.log(showcase,'case')
+  res.render("index.ejs", { showcase: showcase, data: []})
 })
-app.post('/:id', (req, res) => {
-  // code for fetchning pokemons by id
+app.post('/filter', async (req, res) => {
+  let pokemonList = []
+  let { pokemon } = req.body;
+  pokemon = pokemon.split(" ").join("-")
+  let promise = await getPokemons('filter',`${api}/ability/${pokemon}`,pokemon)
+  pokemonList = await Promise.all(promise)
+  // code for filtering pokemons
+  res.render("index.ejs", { showcase: showcase, data: pokemonList })
 })
 app.post('/save', (req, res) => {
   // code for saving
@@ -77,7 +88,7 @@ app.get('/pokemon/:id', async (req, res) => {
   try {
     const response = await axios.get(`${api}/pokemon/${id}`);
     const pokemon = response.data;
-    res.render('pokemon.ejs', { pokemon });
+    res.render('pokemon.ejs', { detail: pokemon });
   } catch (error) {
     res.status(404).send('Pokémon not found');
   }

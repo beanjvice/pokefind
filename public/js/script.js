@@ -26,3 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+const btn = document.querySelector("#more")
+btn?.addEventListener('click',function(){
+  console.log('clicked')
+  const id = btn.getAttribute("key") 
+  console.log(id)
+  window.location.replace('/pokemon/'+id)
+})
