@@ -38,20 +38,23 @@ app.post('/filter', async (req, res) => {
     let response = await axios.get(`${api}/ability/${pokemon}`)
     nameList = response.data.pokemon
   } catch (error) {
-    nameList = []
+    nameList.push(pokemon)
   }
-  if (nameList.length === 0) {
-    let response = await axios.get(`${api}/pokemon/${pokemon}`)
-    promises = response.data
-  }
-  else {
+  console.log(nameList)
+  if (nameList.length !== 0) {
      promises = nameList.map(async (e) => {
       try {
         let response = await axios.get(`${api}/pokemon/${e.pokemon.name}`)
         return response.data
       }
       catch (err) {
-        console.log('res', err)
+        try{
+        let response = await axios.get(`${api}/pokemon/${pokemon}`)
+        return response.data
+        }
+        catch(error){
+             console.log(error)
+        }
       }
     }
     )
