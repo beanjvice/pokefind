@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Pokefinder</title>
+  <link rel="stylesheet" type="text/css" href="/css/index.css">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+</head>
+
+<body>
+  <section id="detail">
+    <header>
+      <img src="/images/pokemonLogo.svg" alt="" class="logo">
+      <ul>
+        <li>
+          All
+        </li>
+        <li>My Favourites</li>
+      </ul>
+    </header>
+    <main>
+      <div class="main-div">
+        <h1 class="title">Ivysaur</h1>
+        <div class="tags">
+          <span class="tag">ability1</span>
+          <span class="tag">ability2</span>
+        </div>
+        <p class="about">
+          lorem Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat, magnam quo accusamus quas sapiente
+          provident sunt minima debitis consequuntur mollitia repudiandae sit reprehenderit, itaque dolorem unde eius
+          quia
+          quibusdam laudantium.
+        </p>
+        <button class="save-btn">
+          <img src="/images/heart.svg" class="sm-icon" alt="save">
+          <span>Save</span>
+        </button>
+        <div class="blob"></div>
+
+        <div class="left">
+          <img src="/images/leafquad.svg" class="img" alt="">
+        </div>
+        <div class="right">
+          <img src="/images/leafquad.svg" class="img" alt="">
+          <img src="/images/leafquad.svg" class="img" alt="">
+          <img src="/images/leafquad.svg" class="img" alt="">
+          <img src="/images/leafquad.svg" class="img" alt="">
+        </div>
+      </div>
+      <div class="pokemon-image">
+
+      </div>
+    </main>
+  </section>
+  <section id="all">
+    <form action="/filter" method="POST">
+      <div class="searchbar">
+        <input id="search-input" type="text" name="pokemon" placeholder="Find pokemons by name">
+        <button type="submit" class="search">
+          <img src="/images/search.svg" alt="search" class="sm-icon">
+        </button>
+      </div>
+    </form>
+    <div class="grid-container">
+      <% if(data && data.length>0){ %>
+        <% data.map(function(e){ %>
+          <div class="card">
+            <img src="/images/poke.svg" alt="" class="top left">
+            <img src="<%=e.sprites.front_default %>" alt="pokemon" class="pokemon">
+            <div class="card-content">
+              <div>
+                <h2>
+                  <%= e.name %>
+                </h2>
+                <div class="tags">
+                  <% e.abilities?.map(function(ab){ %>
+                    <span class="ability">
+                      <%= ab.ability.name %>
+                    </span>
+                    <% }) %>
+                </div>
+              </div>
+              <div class="row gap-md self-center">
+                <div class="col  gap-sm">
+                  <span class="lg-font">
+                    <%= e.height %>M
+                  </span>
+                  <span class="subttl">Height</span>
+                </div>
+                <div class="col gap-sm">
+                  <span class="lg-font">
+                    <%= e.weight %>KG
+                  </span>
+                  <span class="subttl">Weight</span>
+                </div>
+              </div>
+              <div class="row gap-md">
+                <span class="subttl">Base Experience</span>
+                <span>
+                  <%= e.base_experience %>
+                </span>
+
+              </div>
+              <div class="row gap-md">
+                <span class="subttl">Items</span>
+                <div class="tags">
+                  <% if(e.held_items.length>0){ %>
+
+                  <% e.held_items.map(function(item){ %>
+                    <span class="tag">
+                      <%= item?.item?.name %>
+                    </span>
+                    <% })} else { %>
+                      <span>No item</span>
+                      <% } %>
+                </div>
+              </div>
+              <button class="save-btn">More details</button>
+            </div>
+          </div>
+          <% }) %>
+            <% } else { %>
+              <div>
+             <img width="200px" height="200px" src="/images/nothing.png" class="img" alt="">
+                <div class="text-center"> No Pokemon found </div></div>
+              <% } %>
+    </div>
+  </section>
+
+  <script src="public/js/script.js" defer></script>
+
+</body>
+
+</html>
